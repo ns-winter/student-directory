@@ -1,15 +1,25 @@
 def input_students
-  puts "Please enter the names of the students"
+  puts "Please enter the details of the students"
   puts "To finish, just hit return twice"
   #create an empty array
   students = []
   #gets the first name
+  print "Student name => "
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
     #add the student hash to the array
-    students << {name: name, cohort: :november}
+  print "County of Birth => "
+  country = gets.chomp
+  print "Evilness Rating => "
+  evil_rating = gets.chomp
+  print "Favourite hobbies => "
+  hobbies = gets.chomp
+    students << {name: name, cohort: :november, country: country,
+    evil_rating: evil_rating, hobbies: hobbies}
     puts "Now we have #{students.count} students"
+    puts "Please enter the next student details or hit return if finished"
+    print "Student name => "
     name = gets.chomp
   end
   #return the array of students
