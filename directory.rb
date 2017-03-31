@@ -25,7 +25,11 @@ def input_students
   hobbies = gets.chomp
     students << {name: name, cohort: cohort.capitalize, country: country,
     evil_rating: evil_rating, hobbies: hobbies}
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have 1 student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     puts "Please enter the next student details or hit return if finished"
     print "Student name => "
     name = gets.chomp
