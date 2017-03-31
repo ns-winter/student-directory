@@ -64,9 +64,15 @@ end
 
 students = input_students
 #nothing happens until we call the methods
-print_header
-print_standard(students)
-print_footer(students)
+if students.count == 0
+  puts
+  puts "No students attend Villains Academy :("
+  puts
+else
+  print_header
+  print_standard(students)
+  print_footer(students)
+end
 
 def print_restricted(students)
   students.each_with_index do |student, index|
