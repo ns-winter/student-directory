@@ -63,16 +63,6 @@ def print_footer(students)
 end
 
 students = input_students
-#nothing happens until we call the methods
-if students.count == 0
-  puts
-  puts "No students attend Villains Academy :("
-  puts
-else
-  print_header
-  print_standard(students)
-  print_footer(students)
-end
 
 def print_restricted(students)
   students.each_with_index do |student, index|
@@ -84,8 +74,28 @@ end
 
 def print_until_loop(students)
 count = 0
-until count == students.count
-  puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+  until count == students.count
+    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
   count += 1
+  end
 end
+
+def print_by_cohort(students)
+  students.sort_by! { |student| student[:cohort] }
+  count = 0
+  until count == students.count
+    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+    count += 1
+  end
+end
+
+#nothing happens until we call the methods
+if students.count == 0
+  puts
+  puts "No students attend Villains Academy :("
+  puts
+else
+  print_header
+  print_by_cohort(students)
+  print_footer(students)
 end
