@@ -8,14 +8,22 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
-    #add the student hash to the array
+  cohort_months = [:January, :February, :March, :April, :May, :June,
+  :July, :August, :September, :October, :November, :December]
+  print "Cohort Month =>"
+  cohort = gets.chomp
+  while !cohort_months.include? cohort.capitalize.to_sym
+    puts "Please re-enter Cohort Month (in full)..."
+    print "Cohort Month =>"
+    cohort = gets.chomp
+  end
   print "County of Birth => "
   country = gets.chomp
   print "Evilness Rating => "
   evil_rating = gets.chomp
   print "Favourite hobbies => "
   hobbies = gets.chomp
-    students << {name: name, cohort: :november, country: country,
+    students << {name: name, cohort: cohort.capitalize, country: country,
     evil_rating: evil_rating, hobbies: hobbies}
     puts "Now we have #{students.count} students"
     puts "Please enter the next student details or hit return if finished"
