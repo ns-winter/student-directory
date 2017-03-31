@@ -21,11 +21,9 @@ def print_header
   puts "-----------------"
 end
 
-def print(students)
+def print_standard(students)
   students.each_with_index do |student, index|
-    if student[:name][0].capitalize == "N" && student[:name].length <= 11
-      puts " #{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
+    puts " #{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
@@ -36,5 +34,21 @@ end
 students = input_students
 #nothing happens until we call the methods
 print_header
-print(students)
+print_standard(students)
 print_footer(students)
+
+def print_restricted(students)
+  students.each_with_index do |student, index|
+    if student[:name][0].capitalize == "N" && student[:name].length <= 11
+      puts " #{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+end
+
+def print_until_loop(students)
+count = 0
+until count == students.count
+  puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+  count += 1
+end
+end
