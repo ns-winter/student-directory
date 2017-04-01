@@ -45,9 +45,25 @@ def print_menu
 end
 
 def show_students
-  print_header
-  print_students_list
-  print_footer
+  line_width = 50
+  puts "The students of Villains Academy".center(line_width)
+  puts "-----------------".center(line_width)
+  puts
+  @students.each_with_index do |student, index|
+    puts " #{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  end
+  puts
+  puts "-----------------".center(line_width)
+    if @students.count == 0
+      puts "No students attend Villains Academy so far :(".center(line_width)
+      puts
+    elsif @students.count == 1
+      puts "We have one great student at Villains Academy".center(line_width)
+    else
+      puts "Overall, we have #{@students.count} great students".center(line_width)
+      puts
+    end
+  puts
 end
 
 def process(selection)
@@ -65,37 +81,6 @@ def process(selection)
     else
       puts "I don't know what you meant, try again"
   end
-end
-
-def print_header
-  line_width = 50
-  puts "The students of Villains Academy".center(line_width)
-  puts "-----------------".center(line_width)
-  puts
-end
-
-def print_students_list
-  @students.each_with_index do |student, index|
-    puts " #{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
-
-def print_footer
-  line_width = 50
-  puts
-  puts "-----------------".center(line_width)
-    if @students.count == 0
-      puts "No students attend Villains Academy so far :(".center(line_width)
-      puts
-    elsif @students.count == 1
-      puts "We have one great student at Villains Academy".center(line_width)
-    else
-      puts "Overall, we have #{@students.count} great students".center(line_width)
-      puts
-    end
-  puts "----".center(line_width)
-  puts "FIN!".center(line_width)
-  puts "----".center(line_width)
 end
 
 def save_students
