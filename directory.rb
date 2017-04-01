@@ -10,21 +10,14 @@ def input_students
   while !name.empty? do
   cohort_months = [:January, :February, :March, :April, :May, :June,
   :July, :August, :September, :October, :November, :December]
-  print "Cohort Month =>"
+  print "Cohort Month => "
   cohort = gets.chomp
   while !cohort_months.include? cohort.capitalize.to_sym
     puts "Please re-enter Cohort Month (in full)..."
-    print "Cohort Month =>"
+    print "Cohort Month => "
     cohort = gets.chomp
   end
-  print "County of Birth => "
-  country = gets.chomp
-  print "Evilness Rating => "
-  evil_rating = gets.chomp
-  print "Favourite hobbies => "
-  hobbies = gets.chomp
-    @students << {name: name, cohort: cohort.capitalize, country: country,
-    evil_rating: evil_rating, hobbies: hobbies}
+    @students << {name: name, cohort: cohort.capitalize}
     if @students.count == 1
       puts "Now we have 1 student"
     else
@@ -33,6 +26,42 @@ def input_students
     puts "Please enter the next student details or hit return if finished"
     print "Student name => "
     name = gets.chomp
+  end
+end
+
+def interactive_menu
+  @students = []
+  loop do
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "3. Save the list to students.csv"
+  puts "9. Exit" # 9 because we'll be adding more items
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "3"
+      save_students
+    when "9"
+      exit # this will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
   end
 end
 
@@ -67,78 +96,16 @@ def print_footer
   puts "----".center(line_width)
 end
 
-
-
-def print_restricted
-  @students.each_with_index do |student, index|
-    if student[:name][0].capitalize == "N" && student[:name].length <= 11
-      puts " #{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
+def save_students
+  # open the file for writing
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
   end
-end
-
-def print_until_loop
-count = 0
-  until count == @students.count
-    puts "#{@students[count][:name]} (#{@students[count][:cohort]} cohort)"
-  count += 1
-  end
-end
-
-def print_by_cohort
-  @students.sort_by! { |student| student[:cohort] }
-  count = 0
-  until count == @students.count
-    puts "#{@students[count][:name]} (#{@students[count][:cohort]} cohort)"
-    count += 1
-  end
-end
-
-#nothing happens until we call the methods
-=begin
-@students = input_students
-if students.count == 0
-  puts
-  puts "No students attend Villains Academy :("
-  puts
-else
-  print_header
-  print_by_cohort
-  print_footer
-end
-=end
-
-def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "9. Exit" # 9 because we'll be adding more items
-end
-
-def show_students
-  print_header
-  print_students_list
-  print_footer
-end
-
-def process(selection)
-  case selection
-    when "1"
-      input_students
-    when "2"
-      show_students
-    when "9"
-      exit # this will cause the program to terminate
-    else
-      puts "I don't know what you meant, try again"
-  end
-end
-
-def interactive_menu
-  @students = []
-  loop do
-    print_menu
-    process(gets.chomp)
-  end
+  file.close
 end
 
 interactive_menu
