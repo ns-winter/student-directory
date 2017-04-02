@@ -125,10 +125,9 @@ end
 
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
-  else
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      add_students(name, cohort)
+  file.readlines.each do |line|
+  name, cohort = line.chomp.split(',')
+  add_students(name, cohort)
   end
   file.close
   puts
@@ -140,7 +139,7 @@ def try_load_students
   filename = ARGV.first # first argument from the command line
   if filename.nil?
     load_students("students.csv")
-  elsif File.exists?(filename) #if it exists
+  elsif File.exist?(filename) #if it exists
     load_students(filename)
       puts "Loaded #{@students.count} from #{filename}."
   else # if it doesn't exist
