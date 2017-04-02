@@ -5,7 +5,7 @@ def input_students
   puts "To finish, just hit return twice"
   #gets the first name
   print "Student name => "
-  name = STDIN.gets.chomp
+  name = STDIN.gets.gsub(/\n/, "")
   #while the name is not empty, repeat this code
   while !name.empty? do
   cohort_months = [:January, :February, :March, :April, :May, :June,
